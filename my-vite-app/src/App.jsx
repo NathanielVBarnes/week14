@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import MovieLists from './MovieLists';
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -15,7 +16,7 @@ function App() {
       },
     })
       .then((res) => res.json())
-      .then((json) => setMovies(json.results));
+      .then((res) => setMovies(res.results));
   }
 
   useEffect(() => {
@@ -23,26 +24,8 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <h1>Movie Voting and Review App</h1>
-      {movies.map((movie) => (
-        <div className="movie" key={movie.id}>
-          <img
-            src={`https://image.tmbd.org/t/p/w500/${movie.poster_path}`}
-            alt={movie.title}
-          />
-          <div className="movie-info">
-            <h3>{movie.title}</h3>
-            <span>{movie.vote_average}</span>
-          </div>
-          <div className="movie-over">
-            <h2>Overview:</h2>
-            <p>{movie.overview}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
+<MovieLists movies={movies} />
+  )
 }
 
 export default App;

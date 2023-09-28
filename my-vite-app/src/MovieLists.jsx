@@ -1,35 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+//import { useState, useEffect } from 'react';
+//import axios from 'axios';
 import Movie from './Movie';
 
-const MovieList = () => {
-  const [movies, setMovies] = useState([]);
+const MovieLists = ({ movies }) => {
+  // You're now receiving `movies` as a prop from the parent component (e.g., App.jsx)
+  console.log(movies);
 
-  useEffect(() => {
-    const url = "http://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
-    const apiKey = "d207bb479f8cb8b34db68cf477c9382c";
+  // You no longer need the useState and useEffect for fetching movies here
 
-    axios.get(url, {
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
-    })
-      .then((response) => {
-        setMovies(response.data.results);
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
-  }, []);
-
+  // You should include a return statement inside the map function
   return (
     <div className="movie-list">
-      {movies.map((movie) => (
-        <Movie key={movie.id} movie={movie} />
-      ))}
+      {movies.map((movie) => {
+        return (
+          <Movie key={movie.id} movie={movie} />
+        );
+      })}
     </div>
   );
 };
 
-export default MovieList;
+export default MovieLists;
