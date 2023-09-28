@@ -1,93 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Movie from './Movie';
 
-// Movie component
-const Movie = ({ movie, onAddReview }) => {
-  const [reviewText, setReviewText] = useState('');
-  const [rating, setRating] = useState(0);
+const MovieList = () => {
+  const [movies, setMovies] = useState([]);
 
-  const handleReviewSubmit = () => {
-    if (reviewText.trim() === '') {
-      alert('Please enter a review before submitting.');
-      return;
-    }
+  useEffect(() => {
+    const url = "http://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
+    const apiKey = "d207bb479f8cb8b34db68cf477c9382c";
 
-    const newReview = {
-      text: reviewText,
-      rating: rating,
-    };
-
-    onAddReview(newReview);
-    setReviewText('');
-    setRating(0);
-  };
+    axios.get(url, {
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+    })
+      .then((response) => {
+        setMovies(response.data.results);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
 
   return (
-    <div className="movie">
-      <img src={movie.image} alt={movie.title} />
-      <h2>{movie.title}</h2>
-      <p>{movie.synopsis}</p>
-      <div>
-        {[1, 2, 3, 4, 5].map((star) => (
-          <span
-            key={star}
-            className={`star ${star <= rating ? 'active' : ''}`}
-            onClick={() => setRating(star)}
-          >
-            ★
-          </span>
-        ))}
-      </div>
-      <div>
-        <textarea
-          placeholder="Leave a review"
-          value={reviewText}
-          onChange={(e) => setReviewText(e.target.value)}
-        />
-        <button onClick={handleReviewSubmit}>Submit Review</button>
-      </div>
+    <div className="movie-list">
+      {movies.map((movie) => (
+        <Movie key={movie.id} movie={movie} />
+      ))}
     </div>
   );
 };
 
-// MovieList component
-const MovieList = () => {
-    const [movies, setMovies] = useState([]);
-    const [reviews, setReviews] = useState([]);
-  
-    useEffect(() => {
-      // Fetch movie data from an API (replace 'API_ENDPOINT' with your actual API endpoint)
-      fetch('API_ENDPOINT')
-        .then((response) => response.json())
-        .then((data) => setMovies(data))
-        .catch((error) => console.error('Error fetching data:', error));
-    }, []);
-  
-    const addReview = (review) => {
-      setReviews([...reviews, review]);
-    };
-  
-    return (
-      <div className="movie-list">
-        {movies.map((movie) => (
-          <Movie key={movie.id} movie={movie} onAddReview={addReview} />
-        ))}
-      </div>
-    );
-  };
-  
-// Example data
-const moviesData = [
-  {
-    id: 1,
-    title: 'Movie 1',
-    image: 'movie1.jpg',
-    synopsis: 'This is the synopsis for Movie 1.',
-  },
-  {
-    id: 2,
-    title: 'Movie 2',
-    image: 'movie2.jpg',
-    synopsis: 'This is the synopsis for Movie 2.',
-  },
-];
-
+export default MovieList;
