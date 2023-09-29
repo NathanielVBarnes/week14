@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 //import Movie from './Movie';
 import MovieLists from './MovieLists';
+import './App.css';
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -26,8 +27,11 @@ function App() {
   }, []);
 // Check your console.log(movies) and see if you are getting the data. If you are, then you can pass it down to MovieLists.jsx as a prop. Double check naming to make sure pulural names match and singular names match. Check brackets and curly braces.
   return (
-  <MovieLists movies={movies} />
-  )
+    <>
+      <h1 className='display-1 text-center'>Movie App</h1>,
+      <MovieLists movies={movies} />
+    </>
+  );
 }
 
 export default App;
