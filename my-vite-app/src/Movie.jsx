@@ -3,7 +3,7 @@ import  { useState } from 'react';
 const Movie = ({ movie }) => {
   const [reviewText, setReviewText] = useState('');
   const [rating, setRating] = useState(0);
-
+  console.log(rating)
   const handleReviewSubmit = () => {
     if (reviewText.trim() === '') {
       alert('Please enter a review before submitting.');
@@ -41,7 +41,7 @@ const Movie = ({ movie }) => {
           <span
             key={star}
             className={`star ${star <= rating ? "active" : ""}`}
-            onClick={() => setRating(star)}
+            onClick={(event) => setRating(star)}
           >
             ★
           </span>
