@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+//import Movie from './Movie';
+import MovieLists from './MovieLists';
+import './App.css';
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -15,33 +18,19 @@ function App() {
       },
     })
       .then((res) => res.json())
-      .then((json) => setMovies(json.results));
+      .then((res) => setMovies(res.results));
   }
 
   useEffect(() => {
     getMovies();
+    console.log(movies);
   }, []);
-
+// Check your console.log(movies) and see if you are getting the data. If you are, then you can pass it down to MovieLists.jsx as a prop. Double check naming to make sure pulural names match and singular names match. Check brackets and curly braces.
   return (
-    <div className="App">
-      <h1>Movie Voting and Review App</h1>
-      {movies.map((movie) => (
-        <div className="movie" key={movie.id}>
-          <img
-            src={`https://image.tmbd.org/t/p/w500/${movie.poster_path}`}
-            alt={movie.title}
-          />
-          <div className="movie-info">
-            <h3>{movie.title}</h3>
-            <span>{movie.vote_average}</span>
-          </div>
-          <div className="movie-over">
-            <h2>Overview:</h2>
-            <p>{movie.overview}</p>
-          </div>
-        </div>
-      ))}
-    </div>
+    <>
+      <h1 className='display-1 text-center'>Movie App</h1>,
+      <MovieLists movies={movies} />
+    </>
   );
 }
 

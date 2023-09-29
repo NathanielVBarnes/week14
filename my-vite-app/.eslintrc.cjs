@@ -14,6 +14,8 @@ module.exports = {
   rules: {
     'react-refresh/only-export-components': [
       'warn',
+      // THIS BELOW WAS ADDED IN TO FIX THE ERROR OF PROPTYPES NOT BEING DEFINED
+      { "rules": { "react/prop-types": "off" } },
       { allowConstantExport: true },
     ],
   },
