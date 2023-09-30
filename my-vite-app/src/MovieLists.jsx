@@ -1,5 +1,6 @@
 //import { useState, useEffect } from 'react';
 //import axios from 'axios';
+import React from 'react';
 import Movie from './Movie';
 
 const MovieLists = ({ movies }) => {
@@ -19,5 +20,6 @@ const MovieLists = ({ movies }) => {
     </div>
   );
 };
+
 
 export default MovieLists;

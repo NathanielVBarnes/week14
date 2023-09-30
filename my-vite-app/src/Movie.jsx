@@ -1,9 +1,10 @@
-import { useState } from "react";
+import React, { useState } from 'react';
 
 const Movie = ({ movie }) => {
   const [reviewText, setReviewText] = useState('');
   const [rating, setRating] = useState(0);
 
+  console.log(rating);
   const handleReviewSubmit = () => {
     if (reviewText.trim() === '') {
       alert('Please enter a review before submitting.');
@@ -23,16 +24,16 @@ const Movie = ({ movie }) => {
   };
 
   return (
-    <div className='movie'>
-    <img
-      src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-      alt={movie.title}
-    />
-    <div className='movie-info'>
+    <div className="movie">
+      <img
+        src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+        alt={movie.title}
+      />
+      <div className="movie-info">
         <h3>{movie.title}</h3>
         <span>{movie.vote_average}</span>
       </div>
-      <div className='movie-over'>
+      <div className="movie-over">
         <h2>Overview:</h2>
         <p>{movie.overview}</p>
       </div>
@@ -40,8 +41,8 @@ const Movie = ({ movie }) => {
         {[1, 2, 3, 4, 5].map((star) => (
           <span
             key={star}
-            className={`star ${star <= rating ? "active" : ""}`}
-            onClick={() => setRating(star)}
+            className={`star ${star <= rating ? 'active' : ''}`} 
+            onClick={(event) => setRating(star)}
           >
             ★
           </span>
@@ -49,7 +50,7 @@ const Movie = ({ movie }) => {
       </div>
       <div>
         <textarea
-          placeholder='Leave a review'
+          placeholder="Leave a review"
           value={reviewText}
           onChange={(e) => setReviewText(e.target.value)}
         />

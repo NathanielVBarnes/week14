@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import MovieLists from './MovieLists';
+import './App.css';
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -27,5 +28,6 @@ function App() {
 <MovieLists movies={movies} />
   )
 }
+
 
 export default App;
